@@ -31,14 +31,15 @@ void calc(long double& part_pi) {
 
 int main() {
 	vector<thread> th;
-	bool Sem[4] = { false, false, false, false };
+	int thread_count = 4;
 	long double pi = 0.0;
 
 	auto begin = chrono::system_clock::now();
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < thread_count; i++) {
 		th.push_back(thread(calc, ref(pi)));
 	}
+	cout << "Created thread: " << thread_count << endl;
 	for (int i = th.size()-1; i >= 0; i--) {
 		th[i].join();
 	}
